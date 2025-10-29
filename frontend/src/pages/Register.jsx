@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRegister } from "../hooks/useAuth";
 import Input from "../components/Input";
@@ -6,45 +7,93 @@ import BackButton from "../components/BackButton";
 import { isValidEmail, isStrongPassword } from "../utils/validators";
 
 export default function Register() {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit, watch, formState: { errors } } = useForm();
   const { submitRegister, isLoading, isError, isSuccess, error } = useRegister();
 
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
+
   const onSubmit = (data) => {
-    console.log("Form submitted with:", data);
-    submitRegister(data);
+    const { confirmPassword, ...payload } = data;
+    console.log("Form submitted with:", payload);
+    submitRegister(payload);
   };
 
+  const password = watch("password");
 
   return (
-    <div className="max-w-sm mx-auto mt-10">
-      <BackButton />
-      <h2 className="text-xl font-bold mb-4">Register</h2>
+    <div className="flex items-center justify-center min-h-screen bg-gray-50 px-4">
+      <div className="bg-white shadow-xl rounded-2xl p-10 w-full max-w-lg">
+        <BackButton />
+        <h2 className="text-3xl font-bold mb-6 text-center text-blue-700">
+          Register
+        </h2>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-        <Input
-          {...register("email", {
-            required: "Email is required",
-            validate: (v) => isValidEmail(v) || "Invalid email format"
-          })}
-          placeholder="Email"
-        />
-        {errors.email && <p className="text-red-500">{errors.email.message}</p>}
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
+          <Input
+            {...register("email", {
+              required: "Email is required",
+              validate: (v) => isValidEmail(v) || "Invalid email format"
+            })}
+            placeholder="Email"
+          />
+          {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
 
-        <Input
-          {...register("password", {
-            required: "Password is required",
-            validate: (v) => isStrongPassword(v) || "Password must be ≥ 6 chars"
-          })}
-          type="password"
-          placeholder="Password"
-        />
-        {errors.password && <p className="text-red-500">{errors.password.message}</p>}
+          <div className="relative">
+            <Input
+              {...register("password", {
+                required: "Password is required",
+                validate: (v) => isStrongPassword(v) || "Password must be ≥ 6 chars"
+              })}
+              type={showPassword ? "text" : "password"}
+              placeholder="Password"
+            />
+            <button
+              type="button"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-blue-600"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? "Hide" : "Show"}
+            </button>
+          </div>
+          {errors.password && <p className="text-red-500 text-sm">{errors.password.message}</p>}
 
-        <Button type="submit">{isLoading ? "Registering..." : "Register"}</Button>
-      </form>
+          <div className="relative">
+            <Input
+              {...register("confirmPassword", {
+                required: "Please confirm password",
+                validate: (v) =>
+                  v === password || "Passwords do not match",
+              })}
+              type={showConfirm ? "text" : "password"}
+              placeholder="Confirm Password"
+            />
+            <button
+              type="button"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-blue-600"
+              onClick={() => setShowConfirm(!showConfirm)}
+            >
+              {showConfirm ? "Hide" : "Show"}
+            </button>
+          </div>
+          {errors.confirmPassword && (
+            <p className="text-red-500 text-sm">{errors.confirmPassword.message}</p>
+          )}
 
-      {isSuccess && <p className="text-green-600 mt-3">Registered successfully!</p>}
-      {isError && <p className="text-red-600 mt-3">{error?.response?.data.message}</p>}
+          <Button type="submit" className="mt-2">
+            {isLoading ? "Registering..." : "Register"}
+          </Button>
+        </form>
+
+        {isSuccess && (
+          <p className="text-green-600 mt-4 text-center">Registered successfully!</p>
+        )}
+        {isError && (
+          <p className="text-red-600 mt-4 text-center">
+            {error?.response?.data.message}
+          </p>
+        )}
+      </div>
     </div>
   );
 }
