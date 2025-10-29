@@ -91,7 +91,10 @@ export default function Register() {
         )}
         {isError && (
           <p className="text-red-600 mt-4 text-center">
-            {error?.response?.data?.message || error?.message || "Something went wrong"}
+            {error?.formattedMessage ||
+              error?.response?.data?.message ||
+              error?.message ||
+              "Something went wrong"}
           </p>
         )}
       </div>

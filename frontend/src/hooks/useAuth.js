@@ -9,6 +9,17 @@ export function useRegister() {
     },
     onError: (err) => {
       console.error("Registration error:", err);
+
+      let message = "Something went wrong";
+      if (err.response?.data?.message) {
+        message = Array.isArray(err.response.data.message)
+          ? err.response.data.message.join(", ")
+          : err.response.data.message;
+      } else if (err.message) {
+        message = err.message;
+      }
+
+      err.formattedMessage = message;
     },
   });
 
