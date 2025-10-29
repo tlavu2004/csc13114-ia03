@@ -7,7 +7,7 @@ _Project này là bài tập IA03: mô phỏng hệ thống đăng ký người 
 ## Thông tin sinh viên
 - Họ và tên: Trương Lê Anh Vũ
 - MSSV: 22120443
-- Repository bài làm (Github): https://github.com/tlavu2004/csc13114-ia03
+- Repository bài làm (GitHub): https://github.com/tlavu2004/csc13114-ia03
 
 ---
 
@@ -46,16 +46,22 @@ _Project này là bài tập IA03: mô phỏng hệ thống đăng ký người 
 
 ## Chạy dự án (local)
 
-### 1. Clone repository về máy
+### Cách 1: Clone repository từ GitHub
+
+#### Bước 1. Clone repository về máy
 
 ```bash
 git clone https://github.com/tlavu2004/csc13114-ia03.git
 cd csc13114-ia03
 ```
 
-### 2. Backend
+#### Bước 2. Cài đặt các file môi trường
+- Đặt file `.env` trong thư mục `22120443_10/Environments/Backend` vào thư mục `csc13114-ia03/backend`
+- Đặt file `.env.development.local` trong thư mục `22120443_10/Environments/Frontend` vào thư mục `csc13114-ia03/frontend`
 
-- Vào thư mục `backend/`
+#### Bước 3. Backend
+
+- Vào thư mục `csc13114-ia03/backend/`
   ```bash
   cd backend
   npm install
@@ -64,9 +70,9 @@ cd csc13114-ia03
   npm run start:dev
   ```
 
-### 3. Frontend
+#### Bước 4. Frontend
 
-- Vào thư mục `frontend/`
+- Vào thư mục `csc13114-ia03/frontend/`
   ```bash
   cd frontend
   npm install
@@ -77,8 +83,14 @@ cd csc13114-ia03
 
 ---
 
+### Cách 2: Lấy trực tiếp trong thư mục nộp bài
+
+- Thực hiện từ **bước 3** của **cách 1**.
+
+---
+
 ## Chạy dự án trên nền tảng host
-[Nhấn vào đây](https://csc13114-ia03-22120443.vercel.app)
+[Nhấn vào đây để truy cập](https://csc13114-ia03-22120443.vercel.app)
 
 ---
 
