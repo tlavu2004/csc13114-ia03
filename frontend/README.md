@@ -1,16 +1,42 @@
-# React + Vite
+# Frontend (React + Vite) — IA03
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+_This file documents how the frontend works and how to run it._
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Tech highlights
+- Vite + React
+- Tailwind CSS for styling
+- React Hook Form for form validation
+- React Query for API calls (registration mutation)
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Quick start (development)
 
-## Expanding the ESLint configuration
+```bash
+cd frontend
+npm install
+# Ensure VITE_API_URL in .env.development.local points to your backend (default: http://localhost:3000)
+npm run dev
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## Useful scripts (in `frontend/package.json`)
+- `dev` — start Vite dev server
+- `build` — build production bundle
+- `preview` — preview production build
+
+---
+
+## Environment
+- `.env.development.local` — contains `VITE_API_URL` for development. See `.env.example`.
+
+---
+
+## How Register works
+- Form: `src/pages/Register.jsx` uses `react-hook-form` and `src/components/Input.jsx` (forwards ref).
+- Validation: `src/utils/validators.js` (email + password rules). Password policy is synced with backend (8-128 chars, uppercase, lowercase, digit, allowed special chars, no spaces).
+- API: `src/services/userService.js` posts to `${VITE_API_URL}/user/register`.
+- React Query: mutation exposed via `src/hooks/useAuth.js`.
