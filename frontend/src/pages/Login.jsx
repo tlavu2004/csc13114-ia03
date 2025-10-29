@@ -2,6 +2,7 @@ import { useState } from "react";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import BackButton from "../components/BackButton";
+import { validateLogin } from "../utils/validators";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -12,9 +13,15 @@ export default function Login() {
   const handleLogin = (e) => {
     e.preventDefault();
     setStatus("loading");
+
     setTimeout(() => {
-      if (email && password) setStatus("success");
-      else setStatus("error");
+      const result = validateLogin(email, password);
+      if (result.valid) {
+        setStatus("success");
+      } else {
+        setStatus("error");
+        setErrorMessage(result.message);
+      }
     }, 1000);
   };
 

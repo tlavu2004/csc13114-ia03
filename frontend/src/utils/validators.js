@@ -8,3 +8,12 @@ export const isStrongPassword = (password) => {
   return regex.test(password);
 };
 
+export const validateLogin = (email, password) => {
+  if (!isValidEmail(email)) {
+    return { valid: false, message: "Invalid email format" };
+  }
+  if (!isStrongPassword(password)) {
+    return { valid: false, message: "Weak password" };
+  }
+  return { valid: true };
+};
