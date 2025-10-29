@@ -4,7 +4,7 @@ export const isValidEmail = (email) => {
 };
 
 export const isStrongPassword = (password) => {
-  const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,128}$/;
+  const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\[\]{};':",.<>/?\\|-])[A-Za-z\d!@#$%^&*()_+\[\]{};':",.<>/?\\|-]{8,128}$/;
   return regex.test(password);
 };
 
