@@ -48,6 +48,7 @@ export default function Register() {
               })}
               type={showPassword ? "text" : "password"}
               placeholder="Password"
+              className="pr-10"
             />
             <button
               type="button"
@@ -68,6 +69,7 @@ export default function Register() {
               })}
               type={showConfirm ? "text" : "password"}
               placeholder="Confirm Password"
+              className="pr-10"
             />
             <button
               type="button"
