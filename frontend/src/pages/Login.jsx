@@ -8,12 +8,15 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [status, setStatus] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = (e) => {
     e.preventDefault();
     setStatus("loading");
+    setErrorMessage("");
 
+    // Fake delay to simulate API call
     setTimeout(() => {
       const result = validateLogin(email, password);
       if (result.valid) {
@@ -38,7 +41,7 @@ export default function Login() {
             type="email"
             placeholder="Email"
             value={email}
-            onChange={e => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
           />
 
           <div className="relative">
@@ -46,11 +49,11 @@ export default function Login() {
               type={showPassword ? "text" : "password"}
               placeholder="Password"
               value={password}
-              onChange={e => setPassword(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
             />
             <button
               type="button"
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-sm font-medium text-blue-600 hover:text-blue-800 focus:outline-none cursor-pointer bg-transparent border-none"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-sm font-medium text-blue-600 hover:text-blue-800 bg-transparent border-none"
               onClick={() => setShowPassword(!showPassword)}
             >
               {showPassword ? "Hide" : "Show"}
@@ -63,10 +66,12 @@ export default function Login() {
         </form>
 
         {status === "success" && (
-          <p className="text-green-600 mt-4 text-center">Logged in!</p>
+          <p className="text-green-600 mt-4 text-center">
+            Logged in successfully (simulation)
+          </p>
         )}
         {status === "error" && (
-          <p className="text-red-600 mt-4 text-center">Invalid credentials</p>
+          <p className="text-red-600 mt-4 text-center">{errorMessage}</p>
         )}
       </div>
     </div>
