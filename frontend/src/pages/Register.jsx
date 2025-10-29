@@ -43,7 +43,8 @@ export default function Register() {
             <Input
               {...register("password", {
                 required: "Password is required",
-                validate: (v) => isStrongPassword(v) || "Password must be ≥ 6 chars"
+                validate: (password) => isStrongPassword(password) ||
+                  "Password must be 8-128 chars with upper, lower, number & special"
               })}
               type={showPassword ? "text" : "password"}
               placeholder="Password"
